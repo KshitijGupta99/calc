@@ -7,15 +7,23 @@ const res = document.getElementById("result");
 const toast = document.getElementById("toast");
 
 function calculate(value) {
-  const calculatedValue = eval(value || null);
-  if (isNaN(calculatedValue)) {
+  try {
+    const calculatedValue = eval(value || null);
+    res.value = calculatedValue;
+    if (isNaN(calculatedValue)) {
     res.value = "Can't divide 0 with 0";
     setTimeout(() => {
       res.value = "";
-    }, 1300);
+    }, 1000);
   } else {
     res.value = calculatedValue;
   }
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      res.value = "Invalid input"
+  }
+}
+  
 }
 
 // Swaps the stylesheet to achieve dark mode.
@@ -23,7 +31,7 @@ function changeTheme() {
   const theme = document.getElementById("theme");
   setTimeout(() => {
     toast.innerHTML = "Calculator";
-  }, 1500);
+  }, 1000);
   if (theme.getAttribute("href") === lightTheme) {
     theme.setAttribute("href", darkTheme);
     themeIcon.setAttribute("src", sunIcon);
@@ -79,16 +87,19 @@ function keyboardInputHandler(e) {
   }
 
   //operators
-  if (e.key === "+") {
-    res.value += "+";
-  } else if (e.key === "-") {
-    res.value += "-";
-  } else if (e.key === "*") {
-    res.value += "*";
-  } else if (e.key === "/") {
-    res.value += "/";
+  
+  if (/^\d$/.test(res.value.charAt(res.value.length - 1))) {
+    console.log(res.value.charAt(res.value.length - 1))
+    if (e.key === "+") {
+      res.value += "+";
+    } else if (e.key === "-") {
+      res.value += "-";
+    } else if (e.key === "*") {
+      res.value += "*";
+    } else if (e.key === "/") {
+      res.value += "/";
+    }
   }
-
   //decimal key
   if (e.key === ".") {
     res.value += ".";

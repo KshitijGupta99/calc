@@ -52,7 +52,7 @@ h1 {
 input {
   padding: 25px;
   color: rgb(255, 255, 255);
-  font-size: 1em;
+  font-size: 18px;
   cursor: pointer;
   width: 70px;
   background-color: rgb(47, 51, 50);
@@ -91,7 +91,7 @@ a {
 }
 
 #github-icon {
-  margin-right: 10px;
+  margin-right: 14px;
 }
 
 .theme-button {
